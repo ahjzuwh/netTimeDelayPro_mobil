@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <meta charset="utf-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+        <title>Hello World</title>
+    </head>
+    <body>
+        <div class="app">
+            <h1>基站综合数据探测工具</h1>
+            <div id="deviceready">
+                <p class="event listening">插件加载中请稍后......</p>
+                <p class="event received">插件已加载结束可以开始试验</p>
+                <div id="config">
+                    <div class="tabs">
+                        <nav>
+                            <a href="javascript:void(0);" data-cont = "datashow" class="active">数据监测</a>
+                            <a href="javascript:void(0);" data-cont = "ping">Ping配置</a>
+                            <a href="javascript:void(0);" data-cont = "downfile">下载文件</a>
+                            <a href="javascript:void(0);" data-cont = "log">日志保存</a>
+                        </nav>
+                        <section class="cont" id="datashow">
+                            <p class="padding5"><span class="label_title">经纬度:</span><span class="show_dom"><input type="text" id="latitude" placeholder="latitude" value="" readonly="readonly"  class="write_dom" style="width:100px;text-align:center;" /></span>/<span class="show_dom"><input type="text" id="longitude" placeholder="longitude" value="" readonly="readonly"  class="write_dom" style="width:100px;text-align:center;" /></span></p>
+                            <p class="padding5"><span class="label_title">LAC/CID:</span><span class="show_dom"><input type="text" id="LAC" placeholder="LAC" value="" readonly="readonly"  class="write_dom" style="width:80px;text-align:center;"  /></span>/<span class="show_dom"><input type="text" id="CID" placeholder="CID" value="" readonly="readonly"  class="write_dom" style="width:80px;text-align:center;"  /></span></p>
+                            <p class="padding5"><span class="label_title">Dbm/Asu:</span><span class="show_dom"><input type="text" id="Dbm" placeholder="Dbm" value="" readonly="readonly"  class="write_dom" style="width:80px;text-align:center;"  /></span>/<span class="show_dom"><input type="text" id="Asu" placeholder="Asu" value=""  class="write_dom" style="width:80px;text-align:center;"  /></span></p>
+                            <p class="padding5"><span class="label_title">ping时延:</span><span class="show_dom"><input type="text" id="avgRtt" placeholder="avgRtt" value="" readonly="readonly"  class="write_dom" style="width:70px;text-align:center;"  /></span>/<span class="show_dom"><input type="text" id="maxRtt" placeholder="maxRtt" value=""  class="write_dom" style="width:70px;text-align:center;"  /></span>/<span class="show_dom"><input type="text" id="minRtt" placeholder="minRtt" value=""  class="write_dom" style="width:60px;text-align:center;"  /></span>毫秒</p>
+                            <p class="padding5"><span class="label_title">Web探测:</span><span class="show_dom"><input type="text" id="webPath" placeholder="探测站点地址" value="" readonly="readonly"  class="write_dom" style="width:calc(100% - 100px);"/></span></p>
+                            <p class="padding5"><span class="label_title" style="width: 130px;"><input type="text" id="web_delay" placeholder="探测间隔" value="" class="write_dom" style="width:66px;text-align:center;"  />毫秒</span><span class="show_dom"><input type="text" id="timeConsum" placeholder="访问时延" value="" readonly="readonly"  class="write_dom" style="width:66px;text-align:center;"  /></span>毫秒/<span class="show_dom"><input type="text" id="status" placeholder="访问状态" value=""  class="write_dom" style="width:66px;text-align:center;"  /></span></p>
+                            <p class="padding5"><span class="label_title">实验名称:</span><span class="show_dom"><input type="text" id="logName" placeholder="请输入实验名称" value="" class="write_dom" style="width:calc(100% - 100px);"/></span></p>
+                            <p class="padding5"><span class="label_title">操作人:</span><span class="show_dom"><input type="text" id="oper" placeholder="请输入实验操作人" value="" class="write_dom" style="width:calc(100% - 100px);"/></span></p>
+                            <p class="padding5"><span class="label_title">实验时间:</span><span class="show_dom"><input type="text" id="opTimeStart" placeholder="实验开始时间" value="" readonly="readonly"  class="write_dom" style="width:calc(50% - 60px);"/></span><input type="text" id="opTimeEnd" placeholder="实验结束时间" value="" readonly="readonly"  class="write_dom" style="width:calc(50% - 60px);margin-left:10px;"/></span></p>
+                        </section>
+                        <section class="cont" id="ping">
+                            <p class="padding5"><span class="label_title">IP:</span><span class="show_dom"><input type="text" id="ipAddress" placeholder="请输入ping地址" value="2001:da8:270:2020:f816:3eff:fe44:ae74" class="write_dom" style="width:calc(100% - 100px);" /></span></p>
+                            <p class="padding5"><span class="label_title">IP版本:</span><input type="radio" id="ipversion_v4" value="v4" name="ipversion" readonly="readonly"  checked="checked" class="write_dom" style="width:20px;text-align:center;height: 20px;line-height: 20px;margin-top: 5px;position: absolute;"  /><label for="ipversion_v4" style="height: 30px;line-height: 30px;display: inline-block;margin-left: 30px;">IPV4</label><input type="radio" id="ipversion_v6"  name="ipversion" value="v6" readonly="readonly"  class="write_dom" style="width:20px;text-align:center;height: 20px;line-height: 20px;margin-top: 5px;position: absolute;"  /><label for="ipversion_v6" style="height: 30px;line-height: 30px;display: inline-block;margin-left: 30px;">IPV6</label></span><span class="label_title">轮询周期:</span><span class="show_dom"><input type="text" id="loopTimes" placeholder="轮询周期" value="200"  class="write_dom" style="width:50px;text-align:center;"  />毫秒</span></p>
+                            <p class="padding5"><span class="label_title">Ping次数:</span><span class="show_dom"><input type="text" id="pingTimes" placeholder="Ping次数" value="1"  class="write_dom" style="width:60px;text-align:center;"  />次</span><span class="label_title">轮询周期:</span><span class="show_dom"><input type="text" id="pingByte" placeholder="ping包大小" value="64"  class="write_dom" style="width:80px;text-align:center;"  />Byte</span></p>
+                        </section>
+
+                        <section class="cont" id="downfile">
+                            <p class="padding5"><span class="label_title">文件下载:</span><span class="show_dom"><input type="text" id="downPath" placeholder="下载文件地址" value="" readonly="readonly"  class="write_dom" style="width:calc(100% - 100px);"/></span></p>
+                            <p class="padding5"><span class="show_dom" style="height: 30px;line-height: 30px;display: inline-block;font-size: 16px;text-align: center;width: calc( 100% - 140px );"><input type="radio" id="isdown_on" value="on" name="is_down" readonly="readonly"  class="write_dom" style="width:20px;text-align:center;height: 20px;line-height: 20px;margin-top: 5px;position: absolute;"  /><label for="isdown_on" style="height: 30px;line-height: 30px;display: inline-block;margin-left: 30px;">开启下载</label><input type="radio" id="isdown_off" checked="checked"  name="is_down" value="off" readonly="readonly"  class="write_dom" style="width:20px;text-align:center;height: 20px;line-height: 20px;margin-top: 5px;position: absolute;"  /><label for="isdown_off" style="height: 30px;line-height: 30px;display: inline-block;margin-left: 30px;">关闭下载</label></span>/<span class="show_dom"><input type="text" id="down_limit" placeholder="下载限速" value=""  class="write_dom" style="width:66px;text-align:center;"  />（Kb/s）</span></p>
+                        </section>
+                        <section class="cont" id="log">
+                            <p class="padding5"><span class="label_title">日志路径:</span><span class="show_dom"><input type="text" id="logsPath" placeholder="日志存储路径" value="" readonly="readonly"  class="write_dom" style="width:calc(100% - 100px);"/></span></p>
+                            <p class="padding5"><span class="label_title">提交地址:</span><span class="show_dom"><input type="text" id="postUrl" placeholder="数据提交地址" value="http://219.231.15.236:8080/api/private/station.data"  class="write_dom" style="width:calc(100% - 100px);"/></span></p>
+                        </section>
+                    </div>
+                </div>
+                <div id="opbtn" class="opbtn">开始</div>
+            </div>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </body>
+</html>
